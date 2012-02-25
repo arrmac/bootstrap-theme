@@ -20,12 +20,10 @@ layout: default
     {% endif %}
   </ul>
 </div>
-<div class="span3">
-<aside class="sidebar-nav">
+<aside class="sidebar-nav span3">
   {% if site.blog_index_asides.size %}
     {% include_array blog_index_asides %}
   {% else %}
     {% include_array default_asides %}
   {% endif %}
 </aside>
-</div>

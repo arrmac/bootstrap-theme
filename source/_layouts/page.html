@@ -2,10 +2,13 @@
 layout: default
 ---
 
-<div class="span9">
-<article role="article">
+{% if page.sidebar == false %}
+<article role="article" class="span12">
+{% else %}
+<article role="article" class="span9">
+{% endif %}
   {% if page.title %}
-  <header>
+  <header class="page-header">
     <h1 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
     {% if page.date %}<p class="meta">{% include post/date.html %}{{ time }}</p>{% endif %}
   </header>
@@ -30,15 +33,12 @@ layout: default
     <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
   </section>
 {% endif %}
-</div>
 {% unless page.sidebar == false %}
-<div class="span3">
-<aside class="sidebar-nav">
+<aside class="sidebar-nav span3">
   {% if site.page_asides.size %}
     {% include_array page_asides %}
   {% else %}
     {% include_array default_asides %}
   {% endif %}
 </aside>
-</div>
 {% endunless %}
