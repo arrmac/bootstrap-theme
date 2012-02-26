@@ -59,7 +59,7 @@ function linkifyTweet(text, url) {
 
 function showTwitterFeed(tweets, twitter_user) {
   var timeline = document.getElementById('tweets'),
-      content = '';
+      content = '<li class="nav-header">Latest Tweets</li>';
 
   for (var t in tweets) {
     content += '<li>'+'<p>'+'<a href="http://twitter.com/'+twitter_user+'/status/'+tweets[t].id_str+'">'+prettyDate(tweets[t].created_at)+'</a>'+linkifyTweet(tweets[t].text.replace(/\n/g, '<br>'), tweets[t].entities.urls)+'</p>'+'</li>';
