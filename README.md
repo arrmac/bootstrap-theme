@@ -3,6 +3,9 @@
 ## Installation
 
      $ git clone git://github.com/bkutil/bootstrap-theme.git bootstrap-theme
+     $ cd bootstrap-theme
+     $ git submodule init
+     $ git submodule update
 
 This will pull also sass version of twitter bootstrap. Copy the bootstrap-theme into 
 your blog's octopress .theme directory:
