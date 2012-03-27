@@ -1,0 +1,49 @@
+$noise-bg: image-url('noise.png') top left !default;
+$link-color: #08c !default;
+$mono: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !default;
+$arial: "Helvetica Neue", Arial, "Lucida Grande", "Lucida Sans Unicode", Lucida, sans-serif;
+
+$base03:          #000000 !default; //black
+$base02:          #111111 !default; //darkest gray
+$base01:          #222222 !default; //darker gray
+$base00:          #333333 !default; //dark gray
+$base0:           #555555 !default; //medium gray
+$base1:           #999999 !default; //medium light gray
+$base2:           #eeeeee !default; //light gray
+$base3:           #ffffff !default; //white
+$solar-yellow:    #b58900 !default;
+$solar-orange:    #cb4b16 !default;
+$solar-red:       #dc322f !default;
+$solar-magenta:   #d33682 !default;
+$solar-violet:    #6c71c4 !default;
+$solar-blue:      #268bd2 !default;
+$solar-cyan:      #2aa198 !default;
+$solar-green:     #859900 !default;
+
+$solarized: light !default;
+
+@if $solarized == light {
+
+  $_base03: $base03;
+  $_base02: $base02;
+  $_base01: $base01;
+  $_base00: $base00;
+  $_base0:  $base0;
+  $_base1:  $base1;
+  $_base2:  $base2;
+  $_base3:  $base3;
+
+  $base03:  $_base3;
+  $base02:  $_base2;
+  $base01:  $_base1;
+  $base00:  $_base0;
+  $base0:   $_base00;
+  $base1:   $_base01;
+  $base2:   $_base02;
+  $base3:   $_base03;
+}
+
+/* non highlighted code colors */
+$pre-bg: $base03 !default;
+$pre-border: darken($base02, 5) !default;
+$pre-color: $base1 !default;
