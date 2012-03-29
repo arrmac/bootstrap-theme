@@ -1,14 +1,25 @@
-/* Modified classic theme syntax.scss */
 .highlight, html .gist .gist-file .gist-syntax .gist-highlight {
   table td.code { width: 100%; }
   .line-numbers {
     text-align: right;
     font-size: 13px;
     line-height: 1.45em;
-    background: $base02 $noise-bg !important;
-    border-right: 1px solid darken($base02, 2) !important;
-    @include box-shadow(lighten($base03, 2) -1px 0 inset);
-    text-shadow: lighten($base02, 2) 0 -1px;
+    @if $solarized == light {
+      background: lighten($base03, 1) $noise-bg !important;
+      border-right: 1px solid darken($base02, 2) !important;
+      @include box-shadow(lighten($base03, 2) -1px 0 inset);
+      text-shadow: lighten($base02, 2) 0 -1px;
+    } @else if $solarized == bootstrap {
+      background: $base02 $noise-bg !important;
+      border-right: 1px solid darken($base02, 2) !important;
+      @include box-shadow(lighten($base03, 2) -1px 0 inset);
+      text-shadow: lighten($base02, 2) 0 -1px;
+    } @else {
+      background: $base02 $noise-bg !important;
+      border-right: 1px solid darken($base03, 2) !important;
+      @include box-shadow(lighten($base02, 2) -1px 0 inset);
+      text-shadow: darken($base02, 10) 0 -1px;
+    }
     span { color: $base01 !important; }
     padding: .8em !important;
     @include border-radius(0);
@@ -24,7 +35,7 @@ html .gist .gist-file {
   margin-bottom: 1.8em;
   position: relative;
   border: none;
-  padding-top: 18px !important;
+  padding-top: image-height("code_bg.png") !important;
   .gist-syntax {
     border-bottom: 0 !important;
     background: none !important;
@@ -40,30 +51,56 @@ html .gist .gist-file {
    border: 1px solid lighten($base02, 2) !important;
    color: $base01;
    font-size: .7em !important;
-   background: $base02 $noise-bg;
-   border: 1px solid $pre-border !important;
-   border-top: 1px solid lighten($base03, 2) !important;
+   @if $solarized == light {
+     background: lighten($base03, 2) $noise-bg;
+     border: 1px solid $pre-border !important;
+     border-top: 1px solid lighten($base03, 2) !important;
+   } @else if $solarized == bootstrap {
+     background: $base02 $noise-bg;
+     border: 1px solid $pre-border !important;
+     border-top: 1px solid lighten($base03, 2) !important;
+   } @else {
+     background: $base02 $noise-bg;
+   }
    @extend .sans;
    line-height: 1.5em;
-    a {
-      color: $link-color !important;
-      @include hover-link;
-      &:hover { color: $link-color !important; text-decoration: none; }
-    }
-    a[href*='#file'] {
-      position: absolute; top: 0; left:0; right:-10px;
-      color: $base01 !important;
-      @extend .code-title;
-      &:hover { color: $base03 !important; text-decoration: none; }
-    }
-    a[href*=raw]{
-      @extend .download-source;
-      top: 7px;
+   @if $solarized == bootstrap {
+      a {
+        color: $link-color !important;
+        @include hover-link;
+        &:hover { color: $link-color !important; text-decoration: none; }
+      }
+      a[href*='#file'] {
+        position: absolute; top: 0; left:0; right:-10px;
+        color: $base01 !important;
+        @extend .code-title;
+        &:hover { color: $base03 !important; text-decoration: none; }
+      }
+      a[href*=raw]{
+        @extend .download-source;
+        top: 7px;
+      }
+    } @else {
+      a {
+        color: mix($base1, $base01) !important;
+        @include hover-link;
+        &:hover { color: $base1 !important; }
+      }
+      a[href*='#file'] {
+        position: absolute; top: 0; left:0; right:-10px;
+        color: #474747 !important;
+        @extend .code-title;
+        &:hover { color: $link-color !important; }
+      }
+      a[href*=raw]{
+        @extend .download-source;
+        top: .4em;
+      }
     }
   }
 }
 pre {
-  background: $base03 $noise-bg;
+  background: $pre-bg $noise-bg;
   @include border-radius(.4em);
   @extend .mono;
   border: 1px solid $pre-border;
@@ -99,7 +136,7 @@ p, li {
 }
 
 .pre-code {
-  font-size: 13px;
+  @include selection(adjust-color($base03, $lightness: 23%, $saturation: -65%), $text-shadow: $base03 0 1px);
   font-family: $mono !important;
   overflow: scroll;
   overflow-y: hidden;
@@ -186,8 +223,12 @@ p, li {
   overflow-x: auto;
 }
 
-$solar-scroll-bg: rgba(#000, .15);
-$solar-scroll-thumb: rgba(#000, .15);
+$solar-scroll-bg: rgba(#fff, .15);
+$solar-scroll-thumb: rgba(#fff, .2);
+@if $solarized != dark {
+  $solar-scroll-bg: rgba(#000, .15);
+  $solar-scroll-thumb: rgba(#000, .15);
+}
 
 pre, .highlight, .gist-highlight {
   &::-webkit-scrollbar {  height: .5em; background: $solar-scroll-bg; }
@@ -215,29 +256,39 @@ figure.code {
   text-align: center;
   font-size: 13px;
   line-height: 2em;
-  text-shadow: none;
-  color: #999999;
   font-weight: normal;
   margin-bottom: 0;
   @include border-top-radius(5px);
   font-family: $arial;
-  background: #000000;
   border: 1px solid #565656;
   border-top-color: #cbcbcb;
   border-left-color: #a5a5a5;
   border-right-color: #a5a5a5;
   border-bottom: 0;
+  @if $solarized == bootstrap {
+    text-shadow: none;
+    color: #999999;
+    background: #000000;
+  } @else {
+    text-shadow: #cbcccc 0 1px 0;
+    color: #474747;
+    background: #aaaaaa image-url("code_bg.png") top repeat-x;
+  }
 }
 
 .download-source {
-  font-family: $arial;
   position: absolute; right: .8em;
   @include hover-link;
-  color: #777 !important;
   z-index: 1;
   font-size: 13px;
-  text-shadow: none;
   padding-left: 3em;
-  &:hover { color: $base03 !important; text-decoration: none; }
+  @if $solarized == bootstrap {
+    color: #777 !important;
+    text-shadow: none;
+    &:hover { color: $base03 !important; text-decoration: none; }
+  } @else {
+    color: #666 !important;
+    text-shadow: #cbcccc 0 1px 0;
+  }
 }
 
